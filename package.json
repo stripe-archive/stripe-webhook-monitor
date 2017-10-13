@@ -1,0 +1,30 @@
+{
+  "name": "stripe-webhook-monitor",
+  "version": "1.0.0",
+  "description": "Realtime monitor for Stripe webhooks.",
+  "author": "Michael Glukhovsky <mg@stripe.com>",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "pretty": "prettier --write server.js public/app.js"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run pretty",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.3",
+    "prettier": "^1.7.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "boxen": "^1.2.1",
+    "express": "^4.15.3",
+    "ngrok": "^2.2.11",
+    "socket.io": "^2.0.3",
+    "stripe": "^4.23.1"
+  }
+}

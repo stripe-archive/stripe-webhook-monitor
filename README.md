@@ -15,6 +15,9 @@ Webhooks are powerful: you can subscribe to these notifications and programmatic
 
 ## Getting started
 
+### Requirements
+You'll need to have Node v7.6+ installed, which includes support for `async` / `await`.
+
 ### Set up the monitor
 Clone the project repository, and create a configuration for your Stripe account:
 

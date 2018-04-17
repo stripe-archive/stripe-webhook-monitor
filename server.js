@@ -91,7 +91,7 @@ if (config.ngrok.enabled) {
           })
         );
       }
-      console.log(` └ Public URL for receiving Stripe webhooks: ${url}`);
+      console.log(`Public URL for receiving Stripe webhooks: ${url}`);
     }
   );
 }

@@ -9,6 +9,7 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const path = require("path");
 const chalk = require("chalk");
+const request = require("request");
 
 /*
   We use two different Express servers for security reasons: our webhooks
@@ -54,14 +55,38 @@ webhooks.listen(webhooksPort, () => {
   console.log(`Listening for webhooks: http://localhost:${webhooksPort}`);
 });
 
-// Provides an endpoint to receive webhooks
-webhooks.post("/", async (req, res) => {
-  let event = req.body;
-  // Send a notification that we have a new event
-  // Here we're using Socket.io, but server-sent events or another mechanism can be used.
-  io.emit("event", event);
-  // Stripe needs to receive a 200 status from any webhooks endpoint
-  res.sendStatus(200);
+// Fetch valid Webhooks dispatch IPs 
+request.get({
+  url: "https://stripe.com/files/ips/ips_webhooks.json",
+  json: true
+}, (whitelistError, _, whitelistData) => {
+  if (whitelistError) {
+    console.log(
+      chalk.red(`Couldn't fetch Stripe's Webhooks dispatch whitelist: ${err}`)
+    );
+    process.exit(1);
+  }
+
+  // Provides an endpoint to receive webhooks
+  webhooks.post("/", async (request, response) => {
+    const whitelistedIps = whitelistData["WEBHOOKS"];
+    const deliveredByIp = request.headers['x-forwarded-for'];
+    
+    if (!whitelistedIps.includes(deliveredByIp)) {
+      // Did not receive this webhook from a whitelisted IP address
+      console.log(
+        chalk.red('Received webhook from a non-whitelisted IP, ignoring.')
+      );
+      return;
+    }
+
+    let event = request.body;
+    // Send a notification that we have a new event
+    // Here we're using Socket.io, but server-sent events or another mechanism can be used.
+    io.emit("event", event);
+    // Stripe needs to receive a 200 status from any webhooks endpoint
+    response.sendStatus(200);
+  });
 });
 
 // Use ngrok to provide a public URL for receiving webhooks

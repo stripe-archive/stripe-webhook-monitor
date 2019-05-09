@@ -4,7 +4,8 @@ module.exports = {
   port: 4000,
   stripe: {
     // Include your Stripe secret key here
-    secretKey: 'YOUR_STRIPE_SECRET_KEY'
+    secretKey: 'YOUR_STRIPE_SECRET_KEY',
+    signingSecret: null
   },
   /*
      Stripe needs a public URL for our server that it can ping with new events.

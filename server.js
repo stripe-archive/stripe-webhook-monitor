@@ -49,14 +49,32 @@ monitor.get("/recent-events", async (req, res) => {
 const webhooks = express();
 const webhooksPort = config.port + 1;
 
-webhooks.use(bodyParser.json());
 webhooks.listen(webhooksPort, () => {
   console.log(`Listening for webhooks: http://localhost:${webhooksPort}`);
 });
 
 // Provides an endpoint to receive webhooks
-webhooks.post("/", async (req, res) => {
-  let event = req.body;
+webhooks.post("/", bodyParser.raw({ type: "application/json" }), async (req, res) => {
+  let event;
+
+  // Check if signing secret has been set
+  if (config.stripe.signingSecret) {
+    const sig = req.headers['stripe-signature'];
+  
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.signingSecret);
+    } catch (err) {
+      console.log(
+        chalk.red(`Failed to verify webhook signature: ${err.message}`)
+      );
+      res.sendStatus(400);
+      return;
+    }
+  } else {
+    // Signing secret is not set, just pass through
+    event = req.body;
+  }
+
   // Send a notification that we have a new event
   // Here we're using Socket.io, but server-sent events or another mechanism can be used.
   io.emit("event", event);

@@ -31,6 +31,11 @@ Webhooks require a public URL that Stripe will ping to notify the monitor of new
 
 If you have a [__Basic__](https://ngrok.com/pricing) ngrok subscription, you can specify a custom subdomain that will stay reserved for your account.
 
+#### Optional: Verify Webhooks are signed
+[Stripe can optionally sign Webhook events to your endpoints](https://stripe.com/docs/webhooks/signatures). If you'd like the Webhook Monitor to verify these for you, simply modify the `signingSecret` value in `config.js` with the endpoint-specific signing secret key found at the bottom of the Webhook details page.
+
+Unverified Webhooks will return a `400` response to Stripe, and log an error to your console.
+
 ### Start receiving changes
 
 To start the monitor:

@@ -5,7 +5,8 @@ module.exports = {
   stripe: {
     // Include your Stripe secret key here
     secretKey: 'YOUR_STRIPE_SECRET_KEY',
-    signingSecret: null
+    // If not using ngrok, include your Webhook signing secret here
+    webhookSigningSecret: null
   },
   /*
      Stripe needs a public URL for our server that it can ping with new events.

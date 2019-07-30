@@ -6,6 +6,7 @@ module.exports = {
     // Include your Stripe secret key here
     secretKey: 'YOUR_STRIPE_SECRET_KEY',
     // If not using ngrok, include your Webhook signing secret here
+    // i.e., whsec_somerandomcharacters
     webhookSigningSecret: null
   },
   /*

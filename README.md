@@ -1,5 +1,7 @@
 # Stripe Webhook Monitor
 
+🛑 Deprecated 🛑 - This repository is no longer being maintained.
+
 `stripe-webhook-monitor` is a real-time monitor for Stripe webhooks that provides a live feeds and graph of recent events.
 
 <img src="https://raw.githubusercontent.com/stripe/stripe-webhook-monitor/master/screenshots/monitor-feed.gif" width="425"> <img src="https://raw.githubusercontent.com/stripe/stripe-webhook-monitor/master/screenshots/monitor-graph.gif" width="425">

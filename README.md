@@ -42,17 +42,9 @@ npm install
 npm start
 ```
 
-Take note of the public URL provided by ngrok: it should be listed when the monitor starts.
+A [Stripe webhook endpoint](https://stripe.com/docs/webhooks/setup) will be automatically provisioned and pointed at your ngrok tunnel, subscribed to all Stripe events.
 
-**Don't want to use ngrok?** As long as Stripe can reach the webhooks endpoint via a public URL, you'll receive  updates.
-
-### Subscribe to webhook notifications
-
-In your Stripe Dashboard, go to the _API_ section, then click on the _Webhooks_ tab.
-
-You should add a receiving endpoint by clicking _Add Endpoint_. Fill in the public URL provided by ngrok, or any other public URL that can reach the webhook monitor.
-
-![](https://raw.githubusercontent.com/stripe/stripe-webhook-monitor/master/screenshots/setting-up-webhooks.png)
+**Don't want to use ngrok?** As long as Stripe can reach the webhooks endpoint via a public URL, you'll receive updates. Set the `webhookSigningSecret` configuration to ensure your events are signed correctly.
 
 ## Troubleshooting
 

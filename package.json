@@ -23,8 +23,8 @@
     "body-parser": "^1.17.2",
     "boxen": "^1.2.1",
     "express": "^4.15.3",
-    "ngrok": "^3.1.1",
+    "ngrok": "^3.2.4",
     "socket.io": "^2.2.0",
-    "stripe": "^4.23.1"
+    "stripe": "^7.5.0"
   }
 }

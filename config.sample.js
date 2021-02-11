@@ -4,7 +4,10 @@ module.exports = {
   port: 4000,
   stripe: {
     // Include your Stripe secret key here
-    secretKey: 'YOUR_STRIPE_SECRET_KEY'
+    secretKey: 'YOUR_STRIPE_SECRET_KEY',
+    // If not using ngrok, include your Webhook signing secret here
+    // i.e., whsec_somerandomcharacters
+    webhookSigningSecret: null
   },
   /*
      Stripe needs a public URL for our server that it can ping with new events.
